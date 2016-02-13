@@ -18,8 +18,9 @@ development:
   adapter: postgresql
   encoding: unicode
   database: survey_development
+  host: localhost
   pool: 5
-  username: root
+  username: survey
   password: foris123
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -47,14 +48,16 @@ test:
   adapter: postgresql
   encoding: unicode
   database: survey_test
+  host: localhost
   pool: 5
-  username: root
+  username: survey
   password: foris123
 
 production:
   adapter: postgresql
   encoding: unicode
   database: survey_production
+  host: localhost
   pool: 5
-  username: root
+  username: survey
   password: foris123
