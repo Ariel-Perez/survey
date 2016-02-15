@@ -1,5 +1,32 @@
 <% provide(:title, @user.name) %>
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
-</h1>
+
+
+<div class="jumbotron">
+  <h1>
+    <%= gravatar_for @user %>
+    <%= @user.name %>
+  </h1>
+  <hr/>
+  <p>
+    Esta página es un resumen de tu historial en la aplicación.
+  </p>
+  <div class="col-md-6">
+    <h3>
+      Archivos Subidos
+    </h3>
+    <div id="user-files">
+      <a href="#" class="list-group-item">Encuesta de Prueba</a>
+      <a href="#" class="list-group-item">Encuesta Inacap 2015</a>
+      <a href="#" class="list-group-item">Encuesta Inacap 2015(2)</a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h3>
+      Encuestas Etiquetadas
+    </h3>
+    <div id="user-surveys">
+      <a href="#" class="list-group-item">Encuesta de Prueba <span class="badge pull-right">16</span></a>
+      <a href="#" class="list-group-item">Encuesta Inacap 2015  <span class="badge pull-right">42</span></a>
+    </div>
+  </div>
+</div>
