@@ -8,6 +8,8 @@ Survey::Application.routes.draw do
 
   get 'training' => 'training#index'
 
+  resources :users
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
