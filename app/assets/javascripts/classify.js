@@ -1,10 +1,15 @@
-// $(document).ready(initializeSatellites);
-$(document).ready(function() {
-  window.disc = new Disc(new Point(500, 325), 350, 700);
-  window.add = new Satellite(new Point(500, 200), 150, {'class': 'add'});
+ready = function() {
+  var wHeight = $(window).height();
+  var wWidth = $(window).width();
+  var discSize = wHeight - 75;
+  var discCenterSize = discSize / 2;
+  var satelliteSize = discSize / 4 - 10;
+
+  window.disc = new Disc(new Point(wWidth / 2, wHeight / 2), discCenterSize, discSize);
+  window.add = new Satellite(disc.position, satelliteSize, {'class': 'add'});
 
   add.satellite.click(function() {
-    var sat = createCategorySatellite(add.position, 150);
+    var sat = createCategorySatellite(add.position, add.size);
     disc.appendSatellite(sat);
   });
 
@@ -20,7 +25,10 @@ $(document).ready(function() {
   $('#question-indicator').text('Pregunta 2');
   $('#training-next').click(next);
   $('#training-previous').click(previous);
-});
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);;
 
 function createCategorySatellite(position, size, category) {
   var sat = new Satellite(position, size, {'class': 'category'});
@@ -121,8 +129,6 @@ var Category = function(id, name, count) {
   Category.incrementalId = Math.max(Category.incrementalId, this.id + 1);
 };
 
-var r = 200;
-var center = { x: r, y: r };
 var newClassId = 0;
 var queryIndex =-1;
 var data = {
