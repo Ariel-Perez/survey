@@ -1,67 +1,76 @@
-
-var Disc = function(position, size, orbit, options) {
-  this.size = size;
-  this.orbit = orbit;
-  this.position = position;
-
-  this.disc = $('<div class="circle disc"></div>');
-  this.center = $('<div class="circle center"></div>');
+var Circle = function(position, size, options) {
+  this.circle = $('<div class="circle"></div>');
   this.label = $('<span class="label"></span>');
 
-  this.satellites = [];
-
-  this.center.append(this.label);
-  this.disc.append(this.center);
-
-  if (options !== undefined) {
-    for (key in options) {
-      this.disc.attr(key, options[key]);
-    }
-  }
+  this.circle.append(this.label);
 
   this.setText = function(text) {
     this.label.text(text);
-  }
-
-  this.setPosition = function(point) {
-    this.position = position;
-    this.disc.css('top', point.y - this.orbit / 2);
-    this.disc.css('left', point.x - this.orbit / 2);
-  }
+  };
 
   this.setSize = function(size) {
-    this.size = size;
-    this.center.css('width', size);
-    this.center.css('height', size);
-    this.center.css('top', this.orbit / 2 - this.size / 2);
-    this.center.css('left', this.orbit / 2 - this.size / 2);
-  }
+    if (size !== undefined) {
+      this.size = size;
+      this.circle.css('width', size);
+      this.circle.css('height', size);
+    }
+  };
 
-  this.setOrbit = function(orbit) {
-    this.orbit = orbit;
-    this.disc.css('width', orbit);
-    this.disc.css('height', orbit);
-    this.center.css('top', this.orbit / 2 - this.size / 2);
-    this.center.css('left', this.orbit / 2 - this.size / 2);
-  }
+  this.setPosition = function(position) {
+    if (position !== undefined) {
+      this.position = position;
+      this.circle.css('top', position.y - this.size / 2);
+      this.circle.css('left', position.x - this.size / 2);
+    }
+  };
+
+  this.setOptions = function(options) {
+    if (options !== undefined) {
+      for (key in options) {
+        if (key != "class") {
+          this.circle.attr(key, options[key]);
+        } else {
+          this.circle.addClass(options[key]);
+        }
+      }
+    }
+  };
+
+  this.setOptions(options);
 
   this.setSize(size);
-  this.setOrbit(orbit);
   this.setPosition(position);
+}
 
-  this.appendSatellite = function(satellite) {
-    this.satellites.splice(1, 0, satellite);
-    if (this.disc.parent()) {
-      this.disc.parent().append(satellite.satellite);
-    }
+var Satellite = function(position, size, options) {
+  Circle.call(this, position, size, options);
+  this.setOptions({'class': 'satellite'});
+  this.satellite = this.circle;
+};
 
+Satellite.prototype = new Circle();
+
+var Disc = function(position, size, orbit, options) {
+  Circle.call(this, position, orbit, options);
+  this.setOptions({'class': 'disc'});
+  this.disc = this.circle;
+  this.center = new Circle(new Point(orbit / 2, orbit / 2), size, options);
+  this.center.setOptions({'class': 'center'});
+
+  this.disc.append(this.center.circle);
+  this.satellites = [];
+
+  this.orbit = orbit;
+  this.size = size;
+
+  this.adjustSatellites = function() {
     var n = this.satellites.length;
     var interval = 2 * Math.PI / n;
 
-    var radius = this.orbit / 2;
+    var radius = this.orbit / 4 + this.size / 4;
     var center = this.position;
     var totalDuration = 400;
-    var splits = 10;
+    var splits = 30;
 
     this.satellites.forEach(function(sat, index) {
       var x = parseFloat(sat.satellite.css('left')) + sat.size / 2;
@@ -74,45 +83,23 @@ var Disc = function(position, size, orbit, options) {
       animateMotion(sat.satellite, iniPolar, endPolar, splits, totalDuration);
       sat.position = endPolar.cartesian();
     });
+  };
+
+  this.appendSatellite = function(satellite) {
+    this.satellites.splice(1, 0, satellite);
+    if (this.disc.parent()) {
+      this.disc.parent().append(satellite.satellite);
+    }
+    this.adjustSatellites();
+  };
+
+  this.setText = function(text) {
+    this.center.setText(text);
   }
 }
 
-
-var Satellite = function(position, size, options) {
-  this.satellite = $('<div class="satellite circle"></div>');
-  this.label = $('<span class="label"></span>');
-
-  if (options !== undefined) {
-    for (key in options) {
-      if (key != "class") {
-        this.satellite.attr(key, options[key]);
-      } else {
-        this.satellite.addClass(options[key]);
-      }
-    }
-  }
-
-  this.satellite.append(this.label);
-
-  this.setText = function(text) {
-    this.label.text(text);
-  }
-
-  this.setSize = function(size) {
-    this.size = size;
-    this.satellite.css('width', size);
-    this.satellite.css('height', size);
-  }
-
-  this.setPosition = function(point) {
-    this.position = point;
-    this.satellite.css('top', point.y - this.size / 2);
-    this.satellite.css('left', point.x - this.size / 2);
-  }
-
-  this.setSize(size);
-  this.setPosition(position);
-};
+Disc.prototype = new Circle();
+/*
 function createSatellite(position, classes, category) { //,content, count) {
   var satelliteContainer = $('<div class="satellite-container"></div>');
   var satellite = $('<div class="satellite circle"></div>');
@@ -133,4 +120,4 @@ function createSatellite(position, classes, category) { //,content, count) {
   }
 
   return satelliteContainer;
-}
+}*/

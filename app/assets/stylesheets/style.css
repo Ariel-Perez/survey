@@ -33,6 +33,13 @@ span.label input
   font-size: 20px;
 }
 
+.category.classified
+{
+  -moz-box-shadow: 0 0 45px #fdf;
+  -webkit-box-shadow: 0 0 45px #fdf;
+  box-shadow: 0px 0px 45px #fdf;
+}
+
 .category
 {
   cursor: pointer;
@@ -50,6 +57,7 @@ span.label input
 
 .center
 {
+  font-size: 16px;
   border: thick solid #aaa;
   background-color: #fff;
 
@@ -62,11 +70,6 @@ span.label input
 {
   background-color: #fafafa;
   border-color: #999;
-}
-
-.satellite-container
-{
-  position: relative;
 }
 
 .satellite
