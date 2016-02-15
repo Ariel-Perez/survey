@@ -13,16 +13,8 @@ textarea {
   resize: vertical;
 }
 
-.circle .label {
-  color: black;
-}
-
-.center {
-  text-align: center;
-}
-
-.center h1 {
-  margin-bottom: 10px;
+.glyphicon {
+  margin-right: 5px;
 }
 
 .gravatar {
@@ -32,4 +24,17 @@ textarea {
 
 .gravatar_edit {
   margin-top: 15px;
+}
+
+#logo {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+a.no-link {
+  cursor: default;
+}
+
+.jumbotron {
+  background-color: inherit;
 }

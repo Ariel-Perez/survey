@@ -6,13 +6,14 @@ Survey::Application.routes.draw do
   root 'home#index'
 
   get 'help' => 'home#help'
+  get 'data' => 'data#index'
+  get 'training' => 'training#index'
+  get 'results' => 'results#index'
 
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-
-  get 'training' => 'training#index'
 
   resources :users
 
