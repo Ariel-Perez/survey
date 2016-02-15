@@ -1,5 +1,5 @@
 <% provide(:title, "Log in") %>
-<h1>Log in</h1>
+<h1 class="text-center">Iniciar Sesión</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -11,9 +11,9 @@
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.submit "Log in", class: "btn btn-primary" %>
+      <%= f.submit "Iniciar Sesión", class: "btn btn-primary" %>
     <% end %>
 
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <p>¿No tienes cuenta? <%= link_to "¡Crea tu cuenta ahora!", signup_path %></p>
   </div>
 </div>
