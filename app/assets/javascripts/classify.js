@@ -5,7 +5,7 @@ ready = function() {
   var discCenterSize = discSize / 2;
   var satelliteSize = discSize / 4 - 10;
 
-  window.disc = new Disc(new Point(wWidth / 2, wHeight / 2), discCenterSize, discSize);
+  window.disc = new Disc(new Point(wWidth / 2, discSize / 2), discCenterSize, discSize);
   window.add = new Satellite(disc.position, satelliteSize, {'class': 'add'});
 
   add.satellite.click(function() {
