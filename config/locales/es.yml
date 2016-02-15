@@ -3,9 +3,13 @@ es:
   activerecord:
     models:
       user: "Usuario"
+      session: "Sesión"
     attributes:
       user:
         name: "Nombre"
         email: "E-mail"
         password: "Contraseña"
         password_confirmation: "Confirmar Contraseña"
+      session:
+        email: "E-mail"
+        password: "Contraseña"
